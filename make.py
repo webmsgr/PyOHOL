@@ -66,7 +66,7 @@ def funcout(data):
     importout = ""
     for file in files:
         if os.path.basename(file) in sysincludes:
-            importout += "cdef extern from <{}>:\n    pass".format(os.path.basename(file))
+            importout += "cdef extern from <{}>:\n    pass\n".format(os.path.basename(file))
             continue
         else:
             if file == "":
@@ -74,7 +74,8 @@ def funcout(data):
             importout += "cdef extern from \"{}\":\n".format(file)
         for func in files[file]:
             if str(func.return_type) != "?unknown?":
-                importout += "    "+functionformat(func,True,False)#.format(func.return_type,func.name,','.join([str(arg.decl_type) + " " + arg.name for arg in func.arguments if str(arg.decl_type) != "?unknown?"]))
+                fun = function_format(func,True,False)
+                importout += "    "+fun#.format(func.return_type,func.name,','.join([str(arg.decl_type) + " " + arg.name for arg in func.arguments if str(arg.decl_type) != "?unknown?"]))
     print("functions complete!")
     return importout
 
@@ -85,4 +86,4 @@ def get_free_functions(names):
 
 if __name__ == "__main__":
     data = parseCpp("./OneLife/server/map.h")
-    generatePXD(data,"out")
+    print(generatePXD(data,"out"))
