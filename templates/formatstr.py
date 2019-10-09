@@ -1,7 +1,7 @@
 
 importstr = {"sys":(lambda imp: f"cdef extern from '<{imp}>':\n    pass\n"),
              "outside":(lambda imp: "cdef extern from '{imp}':\n"),
-             "inside":(lambda imp: f"from {imp} cimport *\n}"
+             "inside":(lambda imp: f"from {imp} cimport *\n")
             }
 func = {"pxd":{
         "cdef":(lambda func,args: f"cdef {func.return_type} {func.name} ({args})\n"),
