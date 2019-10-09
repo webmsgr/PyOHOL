@@ -9,3 +9,4 @@ func = {"pxd":{
         }}
 argument = lambda arg: f"{str(arg.decl_type).replace(' * * ',' ** ').replace(' * ',' *')} {arg.name}"
 
+anyclass = {} #todo 
