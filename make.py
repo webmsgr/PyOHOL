@@ -44,7 +44,7 @@ def argument_format(arg):
 def function_format(func,pxd,cdef):
     with open("./templates/format") as w:
         d = json.load(w)
-    d = d["func"]["pxd" if pxd else "pyx"]["cdef" if cdef else "nocdef"].format(func)
+    d = d["func"]["pxd" if pxd else "pyx"]["cdef" if cdef else "nocdef"].format(func,argument_format(func.arguments))
     return d
 def funcout(data):
     free_functions = get_free_functions(data)
