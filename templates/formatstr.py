@@ -1,10 +1,11 @@
 
-importstr = {"sys":f"cdef extern from '<{imp}>':\n    pass\n",
-             "outside":f"cdef extern from '{imp}':\n",
-             "inside":f"from {imp} cimport *\n"}
+importstr = {"sys":(lambda imp: f"cdef extern from '<{imp}>':\n    pass\n"),
+             "outside":(lambda imp: "cdef extern from '{imp}':\n"),
+             "inside":(lambda imp: f"from {imp} cimport *\n}"
+            }
 func = {"pxd":{
-        "cdef":f"cdef {func.return_type} {func.name} ({args})\n",
-        "nocdef":f"{func.return_type} {func.name} ({args})\n"
+        "cdef":(lambda func,args: f"cdef {func.return_type} {func.name} ({args})\n"),
+        "nocdef":(lambda func,args: f"{func.return_type} {func.name} ({args})\n")
         }}
-argument = f"{arg.decl_type} {arg.name}"
+argument = lambda arg: f"{arg.decl_type} {arg.name}"
 
