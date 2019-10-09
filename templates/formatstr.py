@@ -7,5 +7,5 @@ func = {"pxd":{
         "cdef":(lambda func,args: f"cdef {func.return_type} {func.name} ({args})\n"),
         "nocdef":(lambda func,args: f"{func.return_type} {func.name} ({args})\n")
         }}
-argument = lambda arg: f"{str(arg.decl_type).replace(' * * ',' ** '} {arg.name}"
+argument = lambda arg: f"{str(arg.decl_type).replace(' * * ',' ** ').replace(' * ',' *')} {arg.name}"
 
