@@ -1,0 +1,8 @@
+{
+"func":{
+    "pxd":{
+        "cdef":"cdef {0.return_type} {0.name} ({1})\n",
+        "nocdef":"{0.return_type} {0.name} ({1})\n"
+        }
+    }
+}
