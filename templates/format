@@ -1,4 +1,9 @@
 {
+"import":{
+    "sys":"cdef extern from '<{0}>':\n    pass\n",
+    "outside":"cdef extern from '{0}':\n",
+    "inside":"from {0.replace('/','.')} cimport *\n"
+},
 "func":{
     "pxd":{
         "cdef":"cdef {0.return_type} {0.name} ({1})\n",
