@@ -4,6 +4,7 @@ from pygccxml import utils
 from pygccxml import declarations
 from pygccxml import parser
 import os
+import templates.formatstr as formatstr
 # Find the location of the xml generator (castxml or gccxml)
 generator_path, generator_name = utils.find_xml_generator()
 
@@ -42,9 +43,8 @@ def get_classes(data):
 def argument_format(arg):
     return ",".join([])
 def function_format(func,pxd,cdef):
-    with open("./templates/format.json") as w:
-        d = json.load(w)
-    d = d["func"]["pxd" if pxd else "pyx"]["cdef" if cdef else "nocdef"].format(func,argument_format(func.arguments))
+    d = formatstr.func
+    d = d["pxd" if pxd else "pyx"]["cdef" if cdef else "nocdef"](func,argument_format(func.arguments))
     return d
 def funcout(data):
     free_functions = get_free_functions(data)
@@ -74,7 +74,7 @@ def funcout(data):
             importout += "cdef extern from \"{}\":\n".format(file)
         for func in files[file]:
             if str(func.return_type) != "?unknown?":
-                importout += "    {} {} ({})\n".format(func.return_type,func.name,','.join([str(arg.decl_type) + " " + arg.name for arg in func.arguments if str(arg.decl_type) != "?unknown?"]))
+                importout += "    "+functionformat(func,True,False)#.format(func.return_type,func.name,','.join([str(arg.decl_type) + " " + arg.name for arg in func.arguments if str(arg.decl_type) != "?unknown?"]))
     print("functions complete!")
     return importout
 
