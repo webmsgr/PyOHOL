@@ -11,7 +11,7 @@ def show(obj):
 sys.argv.append("OneLife/server/server.cpp")
 print("deftree, showing a tree of decls in a c file")
 if len(sys.argv) == 1:
-    print("Usaqge: deftree.py <cfile>")
+    print("Usage: deftree.py <cfile>")
     sys.exit(1)
 dt = make.parseCpp(sys.argv[1])
 ns = declPY.namespace(dt,0)
