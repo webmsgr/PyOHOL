@@ -110,7 +110,7 @@ def funcout(data,filen):
     return importout
 def get_free_functions(names):
     for function in names.free_functions():
-        if function.is_artificial == False:
+        if function.is_artificial is False:
             yield function
 
 if __name__ == "__main__":
