@@ -24,21 +24,22 @@ class Base():
         for c in cl:
             if not c.is_artificial:
                 self.classes.append(cppclass(c,self.indentlevel+1))
-    def _parseChildren(self):
+    def _parseChildren(self,rec=True):
         for clas in self.classes:
-            clas.parse()
+            clas.parse(rec)
         for anamespace in self.namespaces:
-            anamespace.parse()
+            anamespace.parse(rec)
         for func in self.functions:
-            func.parse()
+            func.parse(rec)
         return
     def toPYX(self,recurse=False):
         return ""
     def toPXD(self,recurse=False):
         return ""
-    def parse(self):
+    def parse(self,recurse=True):
         self._children() # populate self
-        self._parseChildren() # parse children
+        if recurse:
+            self._parseChildren(recurse) # parse children
 class namespace(Base):
     pass
 class func(Base): # function
