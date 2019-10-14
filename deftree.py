@@ -16,5 +16,6 @@ if len(sys.argv) == 1:
 dt = make.parseCpp(sys.argv[1])
 ns = declPY.namespace(dt,0)
 ns.parse()
+ns = declPY.convertns(ns)
 print()
 print(show(ns))
