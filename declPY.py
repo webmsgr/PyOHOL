@@ -32,9 +32,9 @@ class Base():
         for func in self.functions:
             func.parse()
         return
-    def toPYX(self):
+    def toPYX(self,recurse=False):
         return ""
-    def toPXD(self):
+    def toPXD(self,recurse=False):
         return ""
     def parse(self):
         self._children() # populate self
