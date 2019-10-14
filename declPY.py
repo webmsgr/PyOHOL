@@ -24,11 +24,7 @@ class Base():
         for c in cl:
             if not c.is_artificial:
                 self.classes.append(cppclass(c,self.indentlevel+1))
-        # end classes
-        # functions
-        # insert code here...
-        # end functions
-        # parse all!
+    def _parseChildren():
         for clas in self.classes:
             clas.parse()
         for anamespace in self.namespaces:
@@ -39,7 +35,8 @@ class Base():
     def toPXD(self):
         return ""
     def parse(self):
-        self._children() # populate and parse children
+        self._children() # populate self
+        self._parseChildren() # parse children
 class namespace(Base):
     pass
 class func(Base): # function
