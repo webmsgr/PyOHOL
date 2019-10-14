@@ -10,7 +10,7 @@ class Base():
         self.indent = indent*4
         self.indentlevel = indent
     def all(self):
-        return self.namespaces+self.functions+self.classes+self.props
+        return self.functions+self.classes+self.props
     def _children(self): # takes self.data and populates all other properties
         # namespaces
         try:
