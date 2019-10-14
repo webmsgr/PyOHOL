@@ -48,6 +48,16 @@ class Base():
         self._children() # populate self
         if recurse:
             self._parseChildren(not recurseFirst) # parse children
+class FileContents():
+    def __init__(self,name,filename):
+        self.ns = name
+        self.classes = [x for clas in self.ns.classes if filename in x.data.location.file_name]
+        self.functions = [x for clas in self.ns.functions if filename in x.data.location.file_name]
+def convertns(ns):
+    out = []
+    ufiles = list(set([x.location.file_name for x in ns.decls()]))
+    for file in ufiles:
+        out.append(FileContents(ns,file))
 class namespace(Base):
     def __init__(self,data,indent):
         super().__init__(data,indent)
