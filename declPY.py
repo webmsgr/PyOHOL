@@ -29,6 +29,8 @@ class Base():
             clas.parse()
         for anamespace in self.namespaces:
             anamespace.parse()
+        for func in self.functions:
+            func.parse()
         return
     def toPYX(self):
         return ""
