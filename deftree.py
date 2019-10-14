@@ -18,4 +18,5 @@ ns = declPY.namespace(dt,0)
 ns.parse()
 ns = declPY.convertns(ns)
 print()
-print(show(ns))
+for n in ns:
+    print(show(n))
