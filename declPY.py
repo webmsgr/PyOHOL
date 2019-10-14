@@ -48,3 +48,5 @@ class include(Base):
     pass
 class prop(Base): # property
     pass
+class variable(Base):
+    pass
