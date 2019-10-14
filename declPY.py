@@ -59,6 +59,7 @@ def convertns(ns):
     ufiles = list(set([x.location.file_name for x in ns.decls()]))
     for file in ufiles:
         out.append(FileContents(ns,file))
+    return out
 class namespace(Base):
     def __init__(self,data,indent):
         super().__init__(data,indent)
