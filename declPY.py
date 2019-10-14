@@ -8,7 +8,19 @@ class Base():
         self.indent = indent*4
         self.indentlevel = indent
     def parse(self):
-        pass # takes self.data and populates all other properties
+        # classes
+        cl = self.data.classes()
+        for c in cl:
+            if not c.is_artificial:
+                self.classes.append(cppclass(c,self.indentlevel+1))
+        # end classes
+        # functions
+        # insert code here...
+        # end functions
+        # parse all!
+        for clas in self.classes:
+            clas.parse()
+        return # takes self.data and populates all other properties
     def toPYX(self):
         return ""
     def toPXD(self):
