@@ -10,7 +10,7 @@ class Base():
         self.indent = indent*4
         self.indentlevel = indent
     def all(self):
-        return self.functions+self.classes+self.props
+        return self.namespaces+self.functions+self.classes+self.props
     def _children(self): # takes self.data and populates all other properties
         # namespaces
         try:
@@ -59,7 +59,7 @@ class FileContents():
         self.functions = [x for x in self.ns.functions if filename in x.data.location.file_name]
 def convertns(ns):
     out = []
-    ufiles = list(set([x.location.file_name for x in ns.all()]))
+    ufiles = list(set([x.data.location.file_name for x in ns.all()]))
     for file in ufiles:
         out.append(FileContents(ns,file))
     return out
