@@ -57,7 +57,7 @@ class FileContents():
         self.functions = [x for x in self.ns.functions if filename in x.data.location.file_name]
 def convertns(ns):
     out = []
-    ufiles = list(set([x.location.file_name for x in ns.decls()]))
+    ufiles = list(set([x.location.file_name for x in ns.data.decls()]))
     for file in ufiles:
         out.append(FileContents(ns,file))
     return out
