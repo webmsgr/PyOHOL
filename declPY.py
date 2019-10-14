@@ -36,10 +36,9 @@ class Base():
         return ""
     def toPXD(self,recurse=False):
         return ""
-    def parse(self,recurse=True):
+    def parse(self,recurseFirst=True):
         self._children() # populate self
-        if recurse:
-            self._parseChildren(recurse) # parse children
+        self._parseChildren(not recurseFirst) # parse children
 class namespace(Base):
     pass
 class func(Base): # function
