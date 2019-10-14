@@ -100,11 +100,8 @@ def funcout(data,filen):
         if os.path.basename(file) in sysincludes:
             importout += formatstr.importstr["sys"](os.path.basename(file))
             continue
-        else:
-            if file == "":
-                print(function.name)
-            else:
-                importout += formatstr.importstr["outside"](file)
+        else:      
+            importout += formatstr.importstr["outside"](file)
         for func in files[file]:
             if str(func.return_type) != "?unknown?":
                 fun = function_format(func,True,False)
