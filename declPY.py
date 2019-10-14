@@ -10,12 +10,12 @@ class Base():
         self.indentlevel = indent
     def parse(self): # takes self.data and populates all other properties
         # namespaces
-        try: 
+        try:
             ns = self.data.namespaces()
         except:
             ns = []
         for anamespace in ns:
-            self.namespaces.append(namespace(anamespace))
+            self.namespaces.append(namespace(anamespace,self.indentlevel+1))
         # classes
         try:
             cl = self.data.classes()
@@ -33,15 +33,15 @@ class Base():
             clas.parse()
         for anamespace in self.namespaces:
             anamespace.parse()
-        return 
+        return
     def toPYX(self):
         return ""
     def toPXD(self):
         return ""
-class namespace(Base): 
+class namespace(Base):
     pass
 class func(Base): # function
-    pass    
+    pass
 class cppclass(Base):
     pass
 class include(Base):
