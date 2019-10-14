@@ -24,7 +24,7 @@ class Base():
         for c in cl:
             if not c.is_artificial:
                 self.classes.append(cppclass(c,self.indentlevel+1))
-    def _parseChildren():
+    def _parseChildren(self):
         for clas in self.classes:
             clas.parse()
         for anamespace in self.namespaces:
