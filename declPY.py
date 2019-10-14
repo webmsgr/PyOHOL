@@ -1,6 +1,7 @@
 # contains classes that represent decls in cpp/h files
 class Base():
     def __init__(self,data,indent):
+        self.type = ""
         self.data = data
         self.namespaces = []
         self.functions = []
@@ -48,14 +49,26 @@ class Base():
         if recurse:
             self._parseChildren(not recurseFirst) # parse children
 class namespace(Base):
-    pass
+    def __init__(self,data,indent):
+        super().__init__(data,indent)
+        self.type = "namespace"
 class func(Base): # function
-    pass
+    def __init__(self,data,indent):
+        super().__init__(data,indent)
+        self.type = "function"
 class cppclass(Base):
-    pass
+    def __init__(self,data,indent):
+        super().__init__(data,indent)
+        self.type = "cppclass"
 class include(Base):
-    pass
+    def __init__(self,data,indent):
+        super().__init__(data,indent)
+        self.type = "include"
 class prop(Base): # property
-    pass
+    def __init__(self,data,indent):
+        super().__init__(data,indent)
+        self.type = "property"
 class variable(Base):
-    pass
+    def __init__(self,data,indent):
+        super().__init__(data,indent)
+        self.type = "variable"
