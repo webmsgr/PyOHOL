@@ -24,13 +24,20 @@ class Base():
         for c in cl:
             if not c.is_artificial:
                 self.classes.append(cppclass(c,self.indentlevel+1))
+        try:
+            funcs = self.data.calldefs()
+        except:
+            funcs = []
+        for f in funcs:
+            if not f.is_artificial:
+                self.functions.append(func(f,self.indentlevel+1))
     def _parseChildren(self,rec=True):
         for clas in self.classes:
             clas.parse(False,rec)
         for anamespace in self.namespaces:
             anamespace.parse(False,rec)
-        for func in self.functions:
-            func.parse(False,rec)
+        for funcs in self.functions:
+            funcs.parse(False,rec)
         return
     def toPYX(self,recurse=False):
         return ""
