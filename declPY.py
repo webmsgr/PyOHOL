@@ -51,6 +51,7 @@ class Base():
 class FileContents():
     def __init__(self,name,filename):
         self.ns = name
+        self.data = name.data
         self.classes = [x for x in self.ns.classes if filename in x.data.location.file_name]
         self.functions = [x for x in self.ns.functions if filename in x.data.location.file_name]
 def convertns(ns):
