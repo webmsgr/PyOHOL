@@ -8,7 +8,7 @@ class Base():
         self.props = []
         self.indent = indent*4
         self.indentlevel = indent
-    def parse(self): # takes self.data and populates all other properties
+    def _children(self): # takes self.data and populates all other properties
         # namespaces
         try:
             ns = self.data.namespaces()
@@ -38,6 +38,8 @@ class Base():
         return ""
     def toPXD(self):
         return ""
+    def parse(self):
+        self._children() # populate and parse children
 class namespace(Base):
     pass
 class func(Base): # function
