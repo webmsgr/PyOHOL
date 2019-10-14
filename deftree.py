@@ -14,9 +14,9 @@ if len(sys.argv) == 1:
     print("Usage: deftree.py <cfile>")
     sys.exit(1)
 dt = make.parseCpp(sys.argv[1])
-ns = declPY.namespace(dt,0)
+ns = declPY.namespace(dt,1)
 ns.parse()
 ns = declPY.convertns(ns)
-print()
 for n in ns:
+    print(n.fl)
     print(show(n))
