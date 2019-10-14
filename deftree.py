@@ -18,5 +18,6 @@ ns = declPY.namespace(dt,1)
 ns.parse()
 ns = declPY.convertns(ns)
 for n in ns:
-    print(n.fl)
-    print(show(n))
+    if sys.argv[1] in n.fl:
+        print(n.fl)
+        print(show(n))

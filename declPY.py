@@ -52,7 +52,9 @@ class Base():
             self._parseChildren(not recurseFirst) # parse children
 class FileContents():
     def __init__(self,name,filename):
+        self.indent = 0
         self.ns = name
+        self.namespaces = [name]
         self.fl = filename
         self.data = name.data
         self.classes = [x for x in self.ns.classes if filename in x.data.location.file_name]
