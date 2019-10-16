@@ -71,6 +71,8 @@ class FileContents():
         self.data = name.data
         self.classes = [x for x in self.ns.classes if filename in x.data.location.file_name]
         self.functions = [x for x in self.ns.functions if filename in x.data.location.file_name]
+    def all(self):
+        return self.classes+self.namespaces+self.classes
 def convertns(ns):
     out = []
     ufiles = list(set([x.data.location.file_name for x in ns.all() if x.data.location]))

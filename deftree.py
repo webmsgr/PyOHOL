@@ -5,7 +5,7 @@ import declPY
 def show(obj):
     out = " "*obj.indent
     out += str(obj.type) + " " + obj.data.name + "\n"
-    for thing in obj.functions+obj.namespaces+obj.classes:
+    for thing in obj.all():
         out += show(thing)
     return out
 sys.argv.append("OneLife/server/server.cpp")
