@@ -4,7 +4,7 @@ import declPY
 
 def show(obj):
     out = " "*obj.indent
-    out += str(obj.type) + " " + obj.data.name + "\n"
+    out += str(obj.type) + " " + obj.name + "\n"
     for thing in obj.all():
         out += show(thing)
     return out
@@ -21,3 +21,6 @@ for n in ns:
     if sys.argv[1] in n.fl:
         print(n.fl)
         print(show(n))
+        print("saving tree to log.log")
+        with open("log.log","w") as f:
+            f.write(show(n))

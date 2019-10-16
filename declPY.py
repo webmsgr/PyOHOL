@@ -10,6 +10,7 @@ class Base():
         self.props = []
         self.indent = indent*4
         self.indentlevel = indent
+        self.name = self.data.name
     def all(self):
         return self.namespaces+self.functions+self.classes+self.props+self.varables
     def _children(self): # takes self.data and populates all other properties
