@@ -5,12 +5,13 @@ class Base():
         self.data = data
         self.namespaces = []
         self.functions = []
+        self.varables = []
         self.classes = []
         self.props = []
         self.indent = indent*4
         self.indentlevel = indent
     def all(self):
-        return self.namespaces+self.functions+self.classes+self.props
+        return self.namespaces+self.functions+self.classes+self.props+self.varables
     def _children(self): # takes self.data and populates all other properties
         # namespaces
         try:
@@ -34,6 +35,13 @@ class Base():
         for f in funcs:
             if not f.is_artificial:
                 self.functions.append(func(f,self.indentlevel+1))
+        try:
+            vas = self.data.variables()
+        except:
+            vas = []
+        for var in vas:
+            if not var.is_artificial:
+                self.varables.append(variable(var,self.indentlevel+1))
     def _parseChildren(self,rec=True):
         for clas in self.classes:
             clas.parse(False,rec)
@@ -41,6 +49,8 @@ class Base():
             anamespace.parse(False,rec)
         for funcs in self.functions:
             funcs.parse(False,rec)
+        for var in self.varables:
+            var.parse(False,rec)
         return
     def toPYX(self,recurse=False):
         return ""
@@ -52,6 +62,8 @@ class Base():
             self._parseChildren(not recurseFirst) # parse children
 class FileContents():
     def __init__(self,name,filename):
+        self.type = "file"
+        self.name = filename
         self.indent = 0
         self.ns = name
         self.namespaces = [name]
