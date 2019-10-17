@@ -1,6 +1,6 @@
 import sys
 import make
-import declPY
+import py_decl
 
 def show(obj):
     out = " "*obj.indent
@@ -14,9 +14,9 @@ if len(sys.argv) == 1:
     print("Usage: deftree.py <cfile>")
     sys.exit(1)
 dt = make.parseCpp(sys.argv[1])
-ns = declPY.namespace(dt,1)
+ns = py_decl.namespace(dt,1)
 ns.parse()
-ns = declPY.convertns(ns)
+ns = py_decl.convertns(ns)
 for n in ns:
     if sys.argv[1] in n.fl:
         print(n.fl)
