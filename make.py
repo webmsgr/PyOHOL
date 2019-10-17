@@ -50,6 +50,7 @@ def parse_file(file):
     global_namespace = declarations.get_global_namespace(decls)
     global_namespace = py_decl.namespace(global_namespace,1)
     global_namespace.parse()
+    global_namespace = py_decl.convertns(global_namespace)
     return global_namespace
 
 if __name__ == "__main__":
