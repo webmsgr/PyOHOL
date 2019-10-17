@@ -7,6 +7,8 @@ from pygccxml import parser
 import os
 import py_decl
 import glob
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 # Find the location of the xml generator (castxml or gccxml)
 generator_path, generator_name = utils.find_xml_generator()
 
@@ -15,11 +17,16 @@ xml_generator_config = parser.xml_generator_configuration_t(xml_generator_path=g
 
 
 def makeMinorGems():
-    pass
+    makeOne("minorGems")
 def makeOneLife():
+    makeOne("OneLife")
+def makeOne(folder):
     incfiles = []
-    for file in glob.glob("OneLife/**/*.h"):
-        incfiles += py_decl.convertns(parse_file(file))
+    for file in glob.glob(folder+"/**/*.h",recursive=True):
+        try:
+            incfiles += py_decl.convertns(parse_file(file))
+        except RuntimeError:
+            print("skipped file {} because of a error".format(file))
     files = {}
     for file in incfiles:
         if file.fl in files:
@@ -27,7 +34,7 @@ def makeOneLife():
         else:
             files[file.fl] = file
     print("Found {} files to convert".format(len(files)))
-def make(file):
+def make():
     pass
 def parseCpp(file):
     return parse_file(file)
@@ -40,3 +47,8 @@ def parse_file(file):
     global_namespace = py_decl.namespace(global_namespace,1)
     global_namespace.parse()
     return global_namespace
+
+if __name__ == "__main__":
+    makeOneLife()
+    makeMinorGems()
+    make()

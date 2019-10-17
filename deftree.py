@@ -12,8 +12,7 @@ print("deftree, showing a tree of decls in a c file")
 if len(sys.argv) == 1:
     print("Usage: deftree.py <cfile>")
     sys.exit(1)
-ns = make.parseCpp(sys.argv[1])
-ns = py_decl.convertns(ns)
+ns = make.parse_file(sys.argv[1])
 for n in ns:
     if sys.argv[1] in n.fl:
         print(n.fl)
