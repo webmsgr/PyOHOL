@@ -12,16 +12,16 @@ if '--use-cython' in sys.argv:
 else:
     USE_CYTHON = False
 ext = '.pyx' if USE_CYTHON else '.cpp'
-extensions = []
+exts = []
 
 for file in glob.glob("OneLife/**/py_*"+ext) + glob.glob("minorGems/**/py_*"+ext):
-  extentions.append(Extension(file.replace("/",".").replace(ext,""),[file],language='c++',include_dirs=[]))
+  exts.append(Extension(file.replace("/",".").replace(ext,""),[file],language='c++',include_dirs=[]))
 
 
 if USE_CYTHON:
     from Cython.Build import cythonize
-    extensions = cythonize(extensions)
+    exts = cythonize(exts)
 
 setup(
-    ext_modules = extensions
+    ext_modules = exts
 )
