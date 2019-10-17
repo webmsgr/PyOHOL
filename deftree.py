@@ -1,6 +1,7 @@
 import sys
 import make
 import py_decl
+import os
 
 def show(obj):
     out = obj.toLog()
@@ -13,10 +14,11 @@ if len(sys.argv) == 1:
     print("Usage: deftree.py <cfile>")
     sys.exit(1)
 ns = make.parse_file(sys.argv[1])
+try:
+    os.mkdir("treeout")
+except:
+    pass
 for n in ns:
-    if sys.argv[1] in n.fl:
-        print(n.fl)
-        print(show(n))
-        print("saving tree to log.log")
-        with open("log.log","w") as f:
+    print("saving {0} to treeout/{0}.log".format(n.fl))
+        with open("treeout/{}.log".format(n.fl),"w") as f:
             f.write(show(n))
