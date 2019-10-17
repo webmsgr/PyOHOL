@@ -20,5 +20,5 @@ except:
     pass
 for n in ns:
     print("saving {0} to treeout/{0}.log".format(n.fl))
-        with open("treeout/{}.log".format(n.fl),"w") as f:
-            f.write(show(n))
+    with open("treeout/{}.log".format(n.fl),"w") as f:
+        f.write(show(n))
