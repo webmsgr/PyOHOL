@@ -25,6 +25,6 @@ def parseCpp(file):
 
     # Get access to the global namespace
     global_namespace = declarations.get_global_namespace(decls)
-    global_namespace = py_decl.namespace(global_namespace)
+    global_namespace = py_decl.namespace(global_namespace,1)
     global_namespace.parse()
     return global_namespace
