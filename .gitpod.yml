@@ -6,3 +6,5 @@ image:
 tasks:
 - init: pip3 install -r requirements.txt # runs during prebuild
   command: python3 deftree.py
+- command: ./updatesubmodules.sh
+
