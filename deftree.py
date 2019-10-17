@@ -3,8 +3,7 @@ import make
 import py_decl
 
 def show(obj):
-    out = " "*obj.indent
-    out += str(obj.type) + " " + obj.name + "\n"
+    out = obj.toLog()
     for thing in obj.all():
         out += show(thing)
     return out

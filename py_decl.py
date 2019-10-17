@@ -10,6 +10,7 @@ class Base():
         self.props = []
         self.indent = indent*4
         self.indentlevel = indent
+        self.type = "base"
         self.name = self.data.name
     def all(self):
         return self.namespaces+self.functions+self.classes+self.props+self.varables
@@ -61,6 +62,8 @@ class Base():
         self._children() # populate self
         if recurse:
             self._parseChildren(not recurseFirst) # parse children
+    def toLog(self):
+        return " "*self.indent+"{} {}\n".format(self.type,self.name)
 class FileContents():
     def __init__(self,name,filename):
         self.type = "file"
@@ -70,10 +73,13 @@ class FileContents():
         self.namespaces = [name]
         self.fl = filename
         self.data = name.data
-        self.classes = [x for x in self.ns.classes if filename in x.data.location.file_name]
-        self.functions = [x for x in self.ns.functions if filename in x.data.location.file_name]
+        self.things = [x for x in self.ns.classes + self.ns.functions + self.ns.varables if filename in x.data.location.file_name]
+        #self.classes = [x for x in self.ns.classes if filename in x.data.location.file_name]
+        #self.functions = [x for x in self.ns.functions if filename in x.data.location.file_name]
     def all(self):
-        return self.classes+self.namespaces+self.classes
+        return self.things
+    def toLog(self):
+        return Base.toLog(self)
 def convertns(ns):
     out = []
     ufiles = list(set([x.data.location.file_name for x in ns.all() if x.data.location]))
