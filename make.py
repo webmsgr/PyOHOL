@@ -34,8 +34,10 @@ def makeOne(folder):
         else:
             files[file.fl] = file
     print("Found {} files to convert".format(len(files)))
-    for file in files:
-        print(file + ":" + str(len(files[file].things)))
+    #for file in files:
+        #print(file + ":" + str(len(files[file].things)))
+    # @todo make it make the pyx/pyd combos
+    # @body i cant wait
 def make():
     pass
 def parseCpp(file):
