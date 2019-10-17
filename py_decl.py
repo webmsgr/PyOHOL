@@ -91,7 +91,10 @@ class func(Base): # function
 class cppclass(Base):
     def __init__(self,data,indent):
         super().__init__(data,indent)
-        self.type = "cppclass"
+        if data.class_type == "class":
+            self.type = "cppclass"
+        else:
+            self.type = data.class_type
 class include(Base):
     def __init__(self,data,indent):
         super().__init__(data,indent)
