@@ -56,8 +56,10 @@ class Base():
         return
     def toPYX(self,recurse=False):
         return ""
+    def _pxd(self):
+        return self.toLog()
     def toPXD(self,recurse=False):
-        return ""
+        return self._pxd() + "".join([x.toPXD() for x in self.all()])
     def parse(self,recurseFirst=False,recurse=True):
         self._children() # populate self
         if recurse:
@@ -80,6 +82,10 @@ class FileContents():
         return self.things
     def toLog(self):
         return Base.toLog(self)
+    def _pxd(self):
+        return self.toLog()
+    def toPXD(self):
+        return Base.toPXD(self)
 def convertns(ns):
     out = []
     ufiles = list(set([x.data.location.file_name for x in ns.all() if x.data.location]))

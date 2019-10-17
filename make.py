@@ -8,6 +8,7 @@ import os
 import py_decl
 import glob
 import warnings
+import time
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 # Find the location of the xml generator (castxml or gccxml)
 generator_path, generator_name = utils.find_xml_generator()
@@ -16,15 +17,11 @@ generator_path, generator_name = utils.find_xml_generator()
 xml_generator_config = parser.xml_generator_configuration_t(xml_generator_path=generator_path,xml_generator=generator_name)
 
 
-def makeMinorGems():
-    makeOne("minorGems")
-def makeOneLife():
-    makeOne("OneLife")
-def makeOne(folder):
+def makeOne(folder,buildfolder):
     incfiles = []
     for file in glob.glob(folder+"/**/*.h",recursive=True):
         try:
-            incfiles += py_decl.convertns(parse_file(file))
+            incfiles += parse_file(file)
         except RuntimeError:
             print("skipped file {} because of a error".format(file))
     files = {}
@@ -38,7 +35,36 @@ def makeOne(folder):
         #print(file + ":" + str(len(files[file].things)))
     # @todo make it make the pyx/pyd combos
     # @body i cant wait
-def make():
+    print("creating build folder")
+    try:
+        os.mkdir("build")
+    except:
+        pass
+    outfolder = "build/{}".format(buildfolder)
+    try:
+        os.mkdir(outfolder)
+    except:
+        pass
+    print("creating files")
+    for file in files:
+        data = files[file]
+        if file == "":
+            file = folder+"_base"
+        if os.path.isabs(file):
+            continue
+        try:
+            os.makedirs(os.path.join(outfolder+"/"+os.path.dirname(file)))
+        except:
+            pass
+        with open(os.path.join(outfolder,file+".meta.txt"),"w") as f:
+            def wr(f,dt):
+                f.write(dt.toLog())
+                for thing in dt.all():
+                    wr(f,thing)
+            wr(f,data)
+        with open(os.path.join(outfolder,file.split(".")[0]+"_py.pxd"),"w") as f:
+            f.write(data.toPXD())
+def make(folder):
     pass
 def parseCpp(file):
     return parse_file(file)
@@ -54,6 +80,7 @@ def parse_file(file):
     return global_namespace
 
 if __name__ == "__main__":
-    makeOneLife()
-    makeMinorGems()
-    make()
+    folder = "build_{}".format(int(time.time()))
+    makeOne("OneLife",folder)
+    makeOne("minorGems",folder)
+    make(folder)
