@@ -1,4 +1,4 @@
-FROM gitpod/workspace-full
+FROM gitpod/workspace-full-vnc
 
 USER root
 
@@ -9,7 +9,6 @@ USER root
 RUN apt-get update \
     && apt-get install -y castxml \
     && apt install -y freeglut3-dev \
-    && apt install -y binutils-gold g++ cmakelibglew-dev g++ mesa-common-dev build-essential libglew1.5-dev libglm-dev \
     && apt install -y mesa-utils \
     && apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 #
