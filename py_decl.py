@@ -1,4 +1,5 @@
 # contains classes that represent decls in cpp/h files
+import os
 class Base():
     def __init__(self,data,indent):
         self.type = ""
@@ -75,6 +76,15 @@ class FileContents():
         self.namespaces = [name]
         self.fl = filename
         self.data = name.data
+        self.includes = set()
+        for x in self.ns.classes+self.ns.functions+self.ns.varables:
+            fl = x.data.location.file_name
+            if fl == "":
+                fl = "unknown_file.h"
+            if not filename in fl:
+                if os.path.isabs(fl):
+                    continue
+                self.includes.add(fl)
         self.things = [x for x in self.ns.classes + self.ns.functions + self.ns.varables if filename in x.data.location.file_name]
         #self.classes = [x for x in self.ns.classes if filename in x.data.location.file_name]
         #self.functions = [x for x in self.ns.functions if filename in x.data.location.file_name]
@@ -83,7 +93,11 @@ class FileContents():
     def toLog(self):
         return Base.toLog(self)
     def _pxd(self):
-        return "cdef extern from \"{}\":\n".format(self.fl)
+        out = ""
+        for include in list(self.includes):
+            out += "from {} cimport *\n".format(include.replace(".h","_py").replace("/","."))
+        out += "cdef extern from \"{}\":\n".format(self.fl)
+        return out
     def toPXD(self):
         return Base.toPXD(self)
 def convertns(ns):
