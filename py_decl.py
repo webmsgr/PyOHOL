@@ -80,7 +80,7 @@ class FileContents():
         for x in self.ns.classes+self.ns.functions+self.ns.varables:
             fl = x.data.location.file_name
             if fl == "":
-                fl = "unknown_file.h"
+                continue
             if not filename in fl:
                 if os.path.isabs(fl):
                     continue
@@ -116,6 +116,14 @@ class func(Base): # function
     def __init__(self,data,indent):
         super().__init__(data,indent)
         self.type = "function"
+        self.args = self.data.arguments
+    def _pxd(self):
+        args = []
+        for arg in self.args:
+            args.append("{0.decl_type} {0.name}".format(arg))
+        args = ",".join(args)
+        out = "cdef {0.return_type} {0.name} ({1})".format(self.data,args)
+        return out
 class cppclass(Base):
     def __init__(self,data,indent):
         super().__init__(data,indent)
