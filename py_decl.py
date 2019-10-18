@@ -57,7 +57,7 @@ class Base():
     def toPYX(self,recurse=False):
         return ""
     def _pxd(self):
-        return self.toLog()
+        return "cdef extern from \"{}\":\n".format(self.fl)
     def toPXD(self,recurse=False):
         return self._pxd() + "".join([x.toPXD() for x in self.all()])
     def parse(self,recurseFirst=False,recurse=True):
