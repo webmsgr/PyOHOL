@@ -26,6 +26,8 @@ def makeOne(folder,buildfolder):
             print("skipped file {} because of a error".format(file))
     files = {}
     for file in incfiles:
+        if file.fl == "":
+            continue
         if file.fl in files:
             files[file.fl].things += file.things
         else:

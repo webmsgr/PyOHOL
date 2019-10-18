@@ -95,6 +95,8 @@ class FileContents():
     def _pxd(self):
         out = ""
         for include in list(self.includes):
+            if include == "":
+                continue
             out += "from {} cimport *\n".format(include.replace(".h","_py").replace("/","."))
         out += "cdef extern from \"{}\":\n".format(self.fl)
         return out
