@@ -14,7 +14,7 @@ else:
 ext = '.pyx' if USE_CYTHON else '.cpp'
 exts = []
 
-for file in glob.glob("OneLife/**/py_*"+ext) + glob.glob("minorGems/**/py_*"+ext):
+for file in glob.glob("OneLife/**/*_py"+ext) + glob.glob("minorGems/**/*_py"+ext):
     exts.append(Extension(file.replace("/",".").replace(ext,""),[file],language='c++',include_dirs=[]))
 
 
